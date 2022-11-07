@@ -5,7 +5,7 @@
  */
 package dtos;
 
-import entities.RenameMe;
+import entities.User;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,28 +13,28 @@ import java.util.List;
  *
  * @author tha
  */
-public class RenameMeDTO {
+public class UserDTO {
     private long id;
     private String str1;
     private String str2;
 
-    public RenameMeDTO(String dummyStr1, String dummyStr2) {
+    public UserDTO(String dummyStr1, String dummyStr2) {
         this.str1 = dummyStr1;
         this.str2 = dummyStr2;
     }
     
-    public static List<RenameMeDTO> getDtos(List<RenameMe> rms){
-        List<RenameMeDTO> rmdtos = new ArrayList();
-        rms.forEach(rm->rmdtos.add(new RenameMeDTO(rm)));
-        return rmdtos;
+    public static List<UserDTO> getDtos(List<User> users){
+        List<UserDTO> userdtos = new ArrayList();
+        users.forEach(user->userdtos.add(new UserDTO(user)));
+        return userdtos;
     }
 
 
-    public RenameMeDTO(RenameMe rm) {
-        if(rm.getId() != null)
-            this.id = rm.getId();
-        this.str1 = rm.getDummyStr1();
-        this.str2 = rm.getDummyStr2();
+    public UserDTO(User user) {
+        if(user.getId() != null)
+            this.id = user.getId();
+        this.str1 = user.getDummyStr1();
+        this.str2 = user.getDummyStr2();
     }
 
     public String getDummyStr1() {
@@ -55,7 +55,7 @@ public class RenameMeDTO {
 
     @Override
     public String toString() {
-        return "RenameMeDTO{" + "id=" + id + ", str1=" + str1 + ", str2=" + str2 + '}';
+        return "UserDTO{" + "id=" + id + ", str1=" + str1 + ", str2=" + str2 + '}';
     }
     
     

@@ -5,14 +5,11 @@
  */
 package utils;
 
-import dtos.RenameMeDTO;
+import dtos.UserDTO;
 import java.util.Properties;
 import java.util.Set;
 import com.google.gson.*;
 import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -31,12 +28,12 @@ public class Utility {
             }
     }
     
-    public static RenameMeDTO json2DTO(String json) throws UnsupportedEncodingException{
-            return gson.fromJson(new String(json.getBytes("UTF8")), RenameMeDTO.class);
+    public static UserDTO json2DTO(String json) throws UnsupportedEncodingException{
+            return gson.fromJson(new String(json.getBytes("UTF8")), UserDTO.class);
     }
     
-    public static String DTO2json(RenameMeDTO rmDTO){
-        return gson.toJson(rmDTO, RenameMeDTO.class);
+    public static String DTO2json(UserDTO rmDTO){
+        return gson.toJson(rmDTO, UserDTO.class);
     }
     
     public static void main(String[] args) throws UnsupportedEncodingException {
@@ -44,7 +41,7 @@ public class Utility {
         
         //Test json2DTO and back again
         String str2 = "{'id':1, 'str1':'Dette er den første tekst', 'str2':'Her er den ANDEN'}";
-        RenameMeDTO rmDTO = json2DTO(str2);
+        UserDTO rmDTO = json2DTO(str2);
         System.out.println(rmDTO);
         
         String backAgain = DTO2json(rmDTO);
