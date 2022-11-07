@@ -3,6 +3,8 @@ package entities;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -20,6 +22,8 @@ public class User {
     @Size(max = 255)
     @Column(name = "user_pass")
     private String userPass;
+    @ManyToMany
+    private List<Role> roleList = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -45,4 +49,14 @@ public class User {
         this.userPass = userPass;
     }
 
+    public List<String> getRolesAsStrings() {
+        if (roleList.isEmpty()) {
+            return null;
+        }
+        List<String> rolesAsStrings = new ArrayList<>();
+        roleList.forEach((role) -> {
+            rolesAsStrings.add(role.getRoleName());
+        });
+        return rolesAsStrings;
+    }
 }
