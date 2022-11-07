@@ -15,12 +15,12 @@ import java.util.List;
  */
 public class UserDTO {
     private long id;
-    private String str1;
-    private String str2;
+    private String Username;
+    private String UserPass;
 
-    public UserDTO(String dummyStr1, String dummyStr2) {
-        this.str1 = dummyStr1;
-        this.str2 = dummyStr2;
+    public UserDTO(String UserName, String UserPass) {
+        this.Username = UserName;
+        this.UserPass = UserPass;
     }
     
     public static List<UserDTO> getDtos(List<User> users){
@@ -33,34 +33,32 @@ public class UserDTO {
     public UserDTO(User user) {
         if(user.getId() != null)
             this.id = user.getId();
-        this.str1 = user.getDummyStr1();
-        this.str2 = user.getDummyStr2();
+        this.Username = user.getUserName();
+        this.UserPass = user.getUserPass();
     }
 
-    public String getDummyStr1() {
-        return str1;
+    public long getId() {
+        return id;
     }
 
-    public void setDummyStr1(String dummyStr1) {
-        this.str1 = dummyStr1;
+    public String getUsername() {
+        return Username;
     }
 
-    public String getDummyStr2() {
-        return str2;
+    public String getUserPass() {
+        return UserPass;
     }
 
-    public void setDummyStr2(String dummyStr2) {
-        this.str2 = dummyStr2;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return "UserDTO{" + "id=" + id + ", str1=" + str1 + ", str2=" + str2 + '}';
+    public void setUsername(String username) {
+        Username = username;
     }
-    
-    
-    
-    
-    
-    
+
+    public void setUserPass(String userPass) {
+        UserPass = userPass;
+    }
+
 }
