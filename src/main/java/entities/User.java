@@ -1,5 +1,7 @@
 package entities;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -23,6 +25,16 @@ public class User {
     private String userPass;
     @ManyToMany
     private List<Role> roleList = new ArrayList<>();
+
+    public User(String userName, String userPass) {
+        this.userName = userName;
+        this.userPass =  BCrypt.hashpw(userPass,BCrypt.gensalt());
+    }
+
+    //TODO Change when password is hashed
+    public boolean verifyPassword(String pw){
+        return(BCrypt.checkpw(pw, userPass));
+    }
 
     public Integer getId() {
         return id;
@@ -57,5 +69,9 @@ public class User {
             rolesAsStrings.add(role.getRoleName());
         });
         return rolesAsStrings;
+    }
+
+    public void addRole(Role userRole) {
+        this.roleList.add(userRole);
     }
 }

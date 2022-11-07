@@ -14,6 +14,11 @@ public class Role {
     @Column(name = "role_name", nullable = false, length = 20)
     private String id;
 
+    String roleName;
+    public Role(String user) {
+        th
+    }
+
     public String getId() {
         return id;
     }

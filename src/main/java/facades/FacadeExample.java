@@ -40,7 +40,7 @@ public class FacadeExample {
         return emf.createEntityManager();
     }
     
-    public UserDTO create(UserDTO rm){
+ /*   public UserDTO create(UserDTO rm){
         RenameMe rme = new RenameMe(rm.getDummyStr1(), rm.getDummyStr2());
         EntityManager em = getEntityManager();
         try {
@@ -58,7 +58,7 @@ public class FacadeExample {
 //        if (rm == null)
 //            throw new RenameMeNotFoundException("The RenameMe entity with ID: "+id+" Was not found");
         return new UserDTO(rm);
-    }
+    }*/
     
     //TODO Remove/Change this before use
     public long getRenameMeCount(){
@@ -71,17 +71,20 @@ public class FacadeExample {
         }
     }
     
-    public List<UserDTO> getAll(){
+  /*  public List<UserDTO> getAll(){
         EntityManager em = emf.createEntityManager();
         TypedQuery<RenameMe> query = em.createQuery("SELECT r FROM RenameMe r", RenameMe.class);
         List<RenameMe> rms = query.getResultList();
         return UserDTO.getDtos(rms);
     }
-    
+   */
+    /*
     public static void main(String[] args) {
         emf = EMF_Creator.createEntityManagerFactory();
         FacadeExample fe = getFacadeExample(emf);
         fe.getAll().forEach(dto->System.out.println(dto));
     }
 
+
+     */
 }
