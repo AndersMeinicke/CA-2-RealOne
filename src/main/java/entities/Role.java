@@ -23,4 +23,10 @@ public class Role {
     }
 
     //TODO [JPA Buddy] generate columns from DB
+    @Column(name = "role_name", length = 20)
+    private String roleName;
+
+    public String getRoleName() {
+        return roleName;
+    }
 }
