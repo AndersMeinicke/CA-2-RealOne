@@ -13,11 +13,9 @@ public class Role {
     @Size(max = 20)
     @Column(name = "role_name", nullable = false, length = 20)
     private String id;
+    @Column(name = "role_name", length = 20)
+    private String roleName;
 
-    String roleName;
-    public Role(String user) {
-        th
-    }
 
     public String getId() {
         return id;
@@ -28,9 +26,6 @@ public class Role {
     }
 
     //TODO [JPA Buddy] generate columns from DB
-    @Column(name = "role_name", length = 20)
-    private String roleName;
-
     public String getRoleName() {
         return roleName;
     }
