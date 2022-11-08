@@ -28,6 +28,18 @@ public class GenericExceptionMapper implements ExceptionMapper<Throwable>  {
     @Context
     ServletContext context;
 
+    public static Response makeErrRes(String s, int i) {
+
+        Response result = null;
+
+        if (s != null){
+            Response.ok().build();
+        }else{
+            result = Response.noContent().build();
+        }
+        return result;
+    }
+
     @Override
     public Response toResponse(Throwable ex) {
         Logger.getLogger(GenericExceptionMapper.class.getName()).log(Level.SEVERE, null, ex);

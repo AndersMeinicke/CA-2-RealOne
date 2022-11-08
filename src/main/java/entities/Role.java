@@ -11,11 +11,14 @@ import javax.validation.constraints.Size;
 public class Role {
     @Id
     @Size(max = 20)
-    @Column(name = "role_name", nullable = false, length = 20)
+    @Column(name = "role_name", nullable = false)
     private String id;
-    @Column(name = "role_name", length = 20)
+    @Column(name = "role_name")
     private String roleName;
 
+    public Role(String roleName) {
+        this.roleName = roleName;
+    }
 
     public String getId() {
         return id;
