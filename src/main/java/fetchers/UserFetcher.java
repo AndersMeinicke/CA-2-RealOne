@@ -21,7 +21,6 @@ public class UserFetcher {
         System.out.println(userDTO.getUserPass());
         userDTO.setPersonalJoke(chuckNorrisDTO.getJoke());
         System.out.println(userDTO.getPersonalJoke());
-       // UserDTO userDTO = gson.fromJson(getPeople,UserDTO.class);
 
     }
 }

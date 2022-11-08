@@ -1,10 +1,13 @@
 package facades;
 
+import dtos.UserDTO;
 import entities.User;
 import security.errorhandling.AuthenticationException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 /**
  * @author lam@cphbusiness.dk
@@ -15,6 +18,10 @@ public class UserFacade {
     private static UserFacade instance;
 
     private UserFacade() {
+    }
+
+    private EntityManager getEntityManager() {
+        return emf.createEntityManager();
     }
 
     /**
@@ -42,6 +49,12 @@ public class UserFacade {
             em.close();
         }
         return user;
+    }
+    public List<UserDTO> getAll(){
+        EntityManager em =getEntityManager();
+        TypedQuery findAll = em.createQuery("SELECT u FROM User u", User.class);
+        List<User> userList =findAll.getResultList();
+        return UserDTO.getDtos(userList);
     }
 
 }
