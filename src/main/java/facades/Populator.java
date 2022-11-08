@@ -6,7 +6,7 @@
 package facades;
 
 import dtos.UserDTO;
-import entities.RenameMe;
+
 import javax.persistence.EntityManagerFactory;
 
 import entities.Role;
@@ -26,8 +26,9 @@ public class Populator {
         //    fe.create(new UserDTO(new RenameMe("First 2", "Last 2")));
    //     fe.create(new UserDTO(new RenameMe("First 3", "Last 3")));
         Role role = new Role ("user");
-        User firstUser = new User("testUser1", "testPass1");
+        User firstUser = new User("userName", "userPass");
         firstUser.addRole(role);
+
         uf.create(new UserDTO(firstUser));
     }
     

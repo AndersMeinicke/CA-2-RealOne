@@ -24,21 +24,12 @@ public class User {
     @Size(max = 255)
     @Column(name = "user_pass")
     private String userPass;
+
     @ManyToMany
     private List<Role> roleList = new ArrayList<>();
 
-    public User(String userName, String userPass) {
-        this.userName = userName;
-        this.userPass =  BCrypt.hashpw(userPass,BCrypt.gensalt());
-    }
-
     public User() {
 
-    }
-
-    //TODO Change when password is hashed
-    public boolean verifyPassword(String pw){
-        return(BCrypt.checkpw(pw, userPass));
     }
 
     public Integer getId() {
@@ -65,18 +56,40 @@ public class User {
         this.userPass = userPass;
     }
 
-    public List<String> getRolesAsStrings() {
-        if (roleList.isEmpty()) {
-            return null;
-        }
-        List<String> rolesAsStrings = new ArrayList<>();
-        roleList.forEach((role) -> {
-            rolesAsStrings.add(role.getRoleName());
-        });
-        return rolesAsStrings;
+
+    public User(String userName, String userPass) {
+        this.userName = userName;
+        this.userPass = userPass;
     }
 
+    // todo pls check this
+    public boolean verifyPassword(String password) {
+
+       boolean checkPass = BCrypt.checkpw(password, userPass);
+        return checkPass;
+    }
+
+    // todo pls check this
+    public List<String> getRolesAsStrings() {
+        //get the roles from the roleList and return them as a list of strings
+        if (roleList != null) {
+            List<String> roleNames = new ArrayList<>();
+            for (Role role : roleList) {
+                roleNames.add(role.getRoleName());
+            }
+            return roleNames;
+        }
+
+        return null;
+    }
+
+
+    // todo pls check this
     public void addRole(Role userRole) {
         this.roleList.add(userRole);
     }
+
+
+
+
 }
