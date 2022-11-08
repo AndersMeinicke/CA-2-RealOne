@@ -17,9 +17,10 @@ public class UserDTO {
     private long id;
     private String Username;
     private String UserPass;
+    private String personalJoke;
 
-    public UserDTO(String UserName, String UserPass) {
-        this.Username = UserName;
+    public UserDTO(String Username, String UserPass) {
+        this.Username = Username;
         this.UserPass = UserPass;
     }
     
@@ -61,4 +62,11 @@ public class UserDTO {
         UserPass = userPass;
     }
 
+    public String getPersonalJoke() {
+        return personalJoke;
+    }
+
+    public void setPersonalJoke(String personalJoke) {
+        this.personalJoke = personalJoke;
+    }
 }
