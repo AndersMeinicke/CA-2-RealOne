@@ -32,6 +32,10 @@ public class User {
         this.userPass =  BCrypt.hashpw(userPass,BCrypt.gensalt());
     }
 
+    public User() {
+
+    }
+
     //TODO Change when password is hashed
     public boolean verifyPassword(String pw){
         return(BCrypt.checkpw(pw, userPass));
