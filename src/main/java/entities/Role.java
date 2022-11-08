@@ -20,6 +20,10 @@ public class Role {
         this.roleName = roleName;
     }
 
+    public Role() {
+
+    }
+
     public String getId() {
         return id;
     }
