@@ -1,5 +1,6 @@
 package facades;
 
+import dtos.UserDTO;
 import entities.User;
 import security.errorhandling.AuthenticationException;
 
@@ -18,7 +19,6 @@ public class UserFacade {
     }
 
     /**
-     *
      * @param _emf
      * @return the instance of this facade.
      */
@@ -44,4 +44,21 @@ public class UserFacade {
         return user;
     }
 
+    private EntityManager getEntityManager() {
+        return emf.createEntityManager();
+    }
+
+    public UserDTO create(UserDTO rm) {
+        User rme = new User(rm.getUsername(), rm.getUserPass());
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(rme);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return new UserDTO(rme);
+
+    }
 }
