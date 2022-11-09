@@ -70,7 +70,7 @@ public class User {
     }
 
     // todo pls check this
-    public List<String> getRolesAsStrings() {
+    public List<String> getRolesListForUser() {
         //get the roles from the roleList and return them as a list of strings
         if (roleList != null) {
             List<String> roleNames = new ArrayList<>();

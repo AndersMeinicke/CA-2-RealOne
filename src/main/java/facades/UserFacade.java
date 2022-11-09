@@ -1,11 +1,14 @@
 package facades;
 
 import dtos.UserDTO;
+import entities.Role;
 import entities.User;
 import security.errorhandling.AuthenticationException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 /**
  * @author lam@cphbusiness.dk
@@ -49,7 +52,9 @@ public class UserFacade {
     }
 
     public UserDTO create(UserDTO rm) {
-        User rme = new User(rm.getUsername(), rm.getUserPass());
+        User rme = new User(rm.getUserName(), rm.getUserPass());
+        Role userRole = new Role("user");
+        rme.addRole(userRole);
         EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
@@ -59,6 +64,36 @@ public class UserFacade {
             em.close();
         }
         return new UserDTO(rme);
+
+    }
+
+//    public List<UserDTO> getAllUsers(){
+//
+//        EntityManager em = getEntityManager();
+//
+//        try{
+//
+//            TypedQuery findAll = em.createQuery("SELECT p FROM User p", User.class);
+//            List<User> users = findAll.getResultList();
+//            return UserDTO.getDTOs(users);
+//
+//        }finally {
+//            em.close();
+//        }
+//
+//    }
+
+    public List<UserDTO> getAllUsers(){
+
+        EntityManager em = getEntityManager();
+
+        try{
+            TypedQuery<User> query = em.createQuery("select u from User u", User.class);
+            List<User> users = query.getResultList();
+            return UserDTO.getDTOs(users);
+        }finally {
+            em.close();
+        }
 
     }
 }

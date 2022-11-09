@@ -21,18 +21,31 @@ public class Populator {
     public static void populate(){
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
         UserFacade uf= UserFacade.getUserFacade(emf);
-        //FacadeExample fe = FacadeExample.getFacadeExample(emf);
-   //     fe.create(new UserDTO(new RenameMe("First 1", "Last 1")));
-        //    fe.create(new UserDTO(new RenameMe("First 2", "Last 2")));
-   //     fe.create(new UserDTO(new RenameMe("First 3", "Last 3")));
-        Role role = new Role ("user");
+
+        Role user = new Role ("user");
+        Role admin = new Role ("admin");
+
         User firstUser = new User("userName", "userPass");
-        firstUser.addRole(role);
+        User secondUser = new User("userName2", "userPass2");
+        User thirdUser = new User("userName3", "userPass3");
+
+//        firstUser.addRole(user);
+//        secondUser.addRole(user);
+//        thirdUser.addRole(admin);
+
 
         uf.create(new UserDTO(firstUser));
+        uf.create(new UserDTO(secondUser));
+        uf.create(new UserDTO(thirdUser));
     }
     
     public static void main(String[] args) {
         populate();
+//        User testuser = new User("test", "test");
+//        testuser.addRole(new Role("user"));
+//        UserDTO testuserDTO = new UserDTO(testuser);
+//        System.out.println(testuserDTO.getRoleListForUser());
+//        System.out.println(testuserDTO);
     }
+
 }
