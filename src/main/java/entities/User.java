@@ -25,7 +25,7 @@ public class User {
     @Column(name = "user_pass")
     private String userPass;
 
-    @ManyToMany
+    @ManyToMany (cascade = CascadeType.PERSIST)
     private List<Role> roleList = new ArrayList<>();
 
     public User() {
