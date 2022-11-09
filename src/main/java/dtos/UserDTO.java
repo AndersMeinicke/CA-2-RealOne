@@ -1,65 +1,93 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dtos;
 
 import entities.User;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
- *
- * @author tha
+ * A DTO for the {@link entities.User} entity
  */
-public class UserDTO {
-    private long id;
-    private String Username;
-    private String UserPass;
+public class UserDTO implements Serializable {
+    private final Integer id;
+    @Size(max = 25)
+    @NotNull
+    private final String userName;
+    @Size(max = 255)
+    private final String userPass;
+    private final List<String> roleListForUser;
 
-    public UserDTO(String UserName, String UserPass) {
-        this.Username = UserName;
-        this.UserPass = UserPass;
-    }
-    
-    public static List<UserDTO> getDtos(List<User> users){
-        List<UserDTO> userdtos = new ArrayList();
-        users.forEach(user->userdtos.add(new UserDTO(user)));
-        return userdtos;
-    }
-
-
-    public UserDTO(User user) {
-        if(user.getId() != null)
-            this.id = user.getId();
-        this.Username = user.getUserName();
-        this.UserPass = user.getUserPass();
+    public UserDTO(User u) {
+        this.id = u.getId();
+        this.userName = u.getUserName();
+        this.userPass = u.getUserPass();
+        this.roleListForUser = u.getRolesListForUser();
     }
 
-    public long getId() {
+
+    public UserDTO(Integer id, String userName, String userPass, List<String> roleListForUser) {
+        this.id = id;
+        this.userName = userName;
+        this.userPass = userPass;
+        this.roleListForUser = roleListForUser;
+    }
+
+    public UserDTO(String userName, String userPass, List<String> roleListForUser) {
+
+        this.id = 0;
+        this.userName = userName;
+        this.userPass = userPass;
+        this.roleListForUser = roleListForUser;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public String getUsername() {
-        return Username;
+    public String getUserName() {
+        return userName;
     }
 
     public String getUserPass() {
-        return UserPass;
+        return userPass;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public List<String> getRoleListForUser() {
+        return roleListForUser;
     }
 
-    public void setUsername(String username) {
-        Username = username;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserDTO entity = (UserDTO) o;
+        return Objects.equals(this.id, entity.id) &&
+                Objects.equals(this.userName, entity.userName) &&
+                Objects.equals(this.userPass, entity.userPass) &&
+                Objects.equals(this.roleListForUser, entity.roleListForUser);
     }
 
-    public void setUserPass(String userPass) {
-        UserPass = userPass;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, userName, userPass, roleListForUser);
     }
 
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "id = " + id + ", " +
+                "userName = " + userName + ", " +
+                "userPass = " + userPass + ", " +
+                "roleListForUser = " + roleListForUser + ")";
+    }
+
+    public static List<UserDTO> getDTOs (List<User> users){
+        List<UserDTO> userDTOList = new ArrayList<>();
+        users.forEach(u -> userDTOList.add(new UserDTO(u)));
+        return userDTOList;
+    }
 }
