@@ -6,6 +6,7 @@ import security.errorhandling.AuthenticationException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -68,5 +69,24 @@ public class UserFacade {
         }
         return new UserDTO(user);
     }
+    public User update(User user) throws EntityNotFoundException {
+        if (user.getId() == 0)
+            throw new IllegalArgumentException("No User can be updated when id is missing");
+        EntityManager em = getEntityManager();
+        em.getTransaction().begin();
+        User u = em.merge(user);
+        em.getTransaction().commit();
+        return u;
+    }
 
+    public User delete(int id) throws EntityNotFoundException{
+        EntityManager em = getEntityManager();
+        User u = em.find(User.class, id);
+        if (u == null)
+            throw new EntityNotFoundException("Could not remove user with id: "+id);
+        em.getTransaction().begin();
+        em.remove(u);
+        em.getTransaction().commit();
+        return u;
+    }
 }

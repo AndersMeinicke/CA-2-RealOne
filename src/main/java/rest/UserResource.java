@@ -8,6 +8,7 @@ import facades.UserFacade;
 import utils.EMF_Creator;
 import facades.FacadeExample;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -30,6 +31,24 @@ public class UserResource {
         UserDTO userDTO =GSON.fromJson(user, UserDTO.class);
         UserDTO newUserDTO = FACADE.create(userDTO);
         return Response.ok().entity(GSON.toJson(newUserDTO)).build();
+    }
+    @PUT
+    @Path("{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response update(@PathParam("id") int id, String content) throws EntityNotFoundException {
+        User userJson = GSON.fromJson(content, User.class);
+        userJson.setId(id);
+        User updated = FACADE.update(userJson);
+        return Response.ok().entity(GSON.toJson(updated)).build();
+    }
+    @DELETE
+    @Path("{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response delete(@PathParam("id") int id) throws EntityNotFoundException {
+        User deleted = FACADE.delete(id);
+        return Response.ok().entity(GSON.toJson(deleted)).build();
     }
 }
 
