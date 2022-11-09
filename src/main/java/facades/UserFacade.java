@@ -56,5 +56,17 @@ public class UserFacade {
         List<User> userList =findAll.getResultList();
         return UserDTO.getDtos(userList);
     }
+    public UserDTO create(UserDTO userDTO){
+        EntityManager em = getEntityManager();
+        User user = new User(userDTO.getUsername(),userDTO.getUserPass());
+        try{
+            em.getTransaction().begin();
+            em.persist(user);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return new UserDTO(user);
+    }
 
 }
