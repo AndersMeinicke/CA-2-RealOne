@@ -89,4 +89,19 @@ public class UserFacade {
         em.getTransaction().commit();
         return u;
     }
+    public UserDTO getUserById(int id) throws EntityNotFoundException {
+
+        EntityManager em = getEntityManager();
+
+        try{
+
+            TypedQuery findPerson = em.createQuery("SELECT u FROM User u WHERE u.id =:user_id",User.class);
+            findPerson.setParameter("user_id",id);
+            User user = (User) findPerson.getSingleResult();
+            return new UserDTO(user);
+
+        } finally {
+            em.close();
+        }
+    }
 }

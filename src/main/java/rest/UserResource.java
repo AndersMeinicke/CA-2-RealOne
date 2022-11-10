@@ -18,14 +18,21 @@ public class UserResource {
     private static final UserFacade FACADE =  UserFacade.getUserFacade(EMF);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     @GET
-    @Path("all")
+    @Path("/all")
     @Produces({MediaType.APPLICATION_JSON})
     public Response getAll(){
     return Response.ok().entity(GSON.toJson(FACADE.getAll())).build();
 }
 
+    @GET
+    @Path("/{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getUser(@PathParam("id") int id){
+        return Response.ok().entity(GSON.toJson(FACADE.getUserById(id))).build();
+    }
+
     @POST
-    @Path("add")
+    @Path("/add")
     @Consumes({MediaType.APPLICATION_JSON})
     public Response create(String user) {
         UserDTO userDTO =GSON.fromJson(user, UserDTO.class);
@@ -33,7 +40,7 @@ public class UserResource {
         return Response.ok().entity(GSON.toJson(newUserDTO)).build();
     }
     @PUT
-    @Path("{id}")
+    @Path("/{id}")
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
     public Response update(@PathParam("id") int id, String content) throws EntityNotFoundException {
@@ -43,7 +50,7 @@ public class UserResource {
         return Response.ok().entity(GSON.toJson(updated)).build();
     }
     @DELETE
-    @Path("{id}")
+    @Path("/{id}")
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
     public Response delete(@PathParam("id") int id) throws EntityNotFoundException {
